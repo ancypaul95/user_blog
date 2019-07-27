@@ -1,0 +1,180 @@
+<style>
+body{
+  background-color: #ecf0f1;
+}
+.flash-block{
+   width:100vw;
+   height: 15%;
+}
+.login-block{
+  background: #ecf0f1;  /* fallback for old browsers */
+  float:left;
+  width:100vw;
+  height: 80vh;
+  padding : 50px 0;
+}
+.container{
+  background:#fff;
+  border-radius: 10px;
+  border: 2px;
+}
+.btn-login{
+  background: #3498db;
+  color:#fff;
+  font-weight:600;
+}
+.login-sec{
+  padding: 50px 30px;
+  position:relative;
+}
+.login-sec .copy-text{
+  position:absolute;
+  width:80%;
+  bottom:20px;
+  font-size:13px;
+  text-align:center;
+}
+.login-sec .copy-text i{
+  color:#FEB58A;
+}
+.login-sec .copy-text a{
+  color:#E36262;
+}
+.login-sec h2{
+  margin-bottom:30px;
+  font-weight:800;
+  font-size:30px;
+  color: #DE6262;
+}
+.login-sec h1{
+  margin-bottom:30px;
+  font-weight:800;
+  font-size:32px;
+  color: #3498db;
+}
+.login-sec h2:after{
+  content:" ";
+  width:100px;
+  height:5px;
+  background:#FEB58A;
+  display:block;
+  margin-top:20px;
+  border-radius:3px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.flash_message{
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.15rem;
+  border-left: 0.3rem solid #FF0000B3;
+  background: #FF00004C;
+  position: fixed;
+  left:50%;
+  transform: translate(-50%, 0)
+}
+.label-size{
+  font-size: 14px;
+}
+.block{
+  height: 100%;
+}
+@media screen and (min-width: 1400px) {
+  .login-block{
+    position: absolute;
+    top: 7%;
+  }
+  .container{
+    width: 25%;
+  }
+}
+@media screen and (max-width: 1400px) {
+  .login-block{
+    position: absolute;
+    top: 14%;
+  }
+  .container{
+    width: 25%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .login-block{
+    position: absolute;
+    top: 24%;
+  }
+  .container{
+    width: 75%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .login-block{
+    position: absolute;
+    top: 24%;
+  }
+  .container{
+    width: 100%;
+  }
+}
+</style>
+<div class="block">
+  <div class="flash-block">
+    <% flash.each do |name, msg| %>
+
+      <% if msg.class == Array %>
+        <% msg.each do |message| %>
+          <%= content_tag :div, message, id: "flash_#{name}", class: "flash_message" %>
+        <% end %>
+      <% else %>
+
+        <%= content_tag :div, msg, id: "flash_#{name}", class: "flash_message" %>
+
+      <% end %>
+    <% end %>
+  </div>
+
+  <section class="login-block">
+    <div class="container">
+      <div class="row">
+        <div class="col login-sec">
+          <%= form_for(
+            resource,
+            as: resource_name,
+            url: session_path(resource_name),
+            class: "login-form") do |f|
+          %>
+            <div class="field form-group label-size">
+              <%= f.label :email %><br />
+              <%= f.email_field :email,
+                autofocus: true,
+                autocomplete: "email",
+                class: "form-control",
+                placeholder: "Email ID"
+              %>
+            </div>
+
+            <div class="field form-group label-size">
+              <%= f.label :password %><br />
+              <%= f.password_field :password,
+                autocomplete: "current-password",
+                class: "form-control",
+                placeholder: "Password"
+              %>
+            </div>
+
+            <% if devise_mapping.rememberable? -%>
+              <div class="field custom-control custom-checkbox">
+                <%= f.check_box :remember_me, class: "custom-control-input" %>
+                <%= f.label :remember_me, class: "custom-control-label" %>
+              </div>
+            <% end -%>
+
+            <div class="actions mt-3">
+              <%= link_to "Sign up", new_user_registration_path, class: 'btn btn-login btn-block'  %> |
+              <%= f.submit "Log in", class: "btn btn-login btn-block" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
