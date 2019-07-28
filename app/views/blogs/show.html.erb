@@ -1,21 +1,31 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @blog.title %>
+  <%= notice %>
 </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @blog.description %>
-</p>
+<%= link_to 'Back to Blogs', blogs_path, class: 'btn btn-primary text-light my-2' %>
+<article class="card">
+  <header class="card-title text-center my-3">
+    <h1><%= @blog.title %></h1>
+    <dl>
+      <dt>Created by </dt>
+      <dd><%= @blog.user.email %></dd>
+    </dl>
+  </header>
+  <section class="card-body">
+    <p>
+      <%= @blog.description %>
+    </p>
+  </section>
+  <% if @blog.user == current_user %>
+    <footer class="card-footer">
+      <ul class="nav nav-pills card-header-pills float-left">
+        <li>
+          <%= link_to ' Edit', edit_blog_path(@blog), class: 'fa fa-pencil nav-link text-primary' %> 
+        </li>
+        <li>
+          <%= link_to ' Delete', @blog, method: :delete, class: 'fa fa-trash nav-link text-danger', data: { confirm: 'Are you sure?' } %>
+        </li>
+      </ul>
+    </footer>
+  <% end %>
+</article>
 
-<p>
-  <strong>User:</strong>
-  <%= @blog.user.email %>
-</p>
-
-<% if @blog.user == current_user %>
-  <%= link_to 'Edit', edit_blog_path(@blog) %> |
-<% end %>
-<%= link_to 'Back', blogs_path %>
