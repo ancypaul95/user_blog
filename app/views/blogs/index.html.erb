@@ -1,33 +1,38 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<h1>Blogs</h1>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @blogs.each do |blog| %>
-      <tr>
-        <td><%= blog.title %></td>
-        <td><%= blog.description %></td>
-        <td><%= link_to 'Show', blog %></td>
-        <% if blog.user == current_user%>
-          <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-          <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% else%>
-          <td><%= link_to "", blog_likes_path(blog_id: blog.id), method: :post, class: 'fa fa-thumbs-up'%> | <%= blog.likes.count %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Blog', new_blog_path %>
+  <% @blogs.each do |blog| %>
+    <div class="card my-3 w-50">
+      <div class="card-title text-center p-2">
+        <%= blog.title %>
+      </div>
+      <div class="card-body">
+        <p class="card-text blog__p--max-height"><%= blog.description %></p>
+        <div class="text-right">
+          <%= link_to 'Expand', blog, class: "card-link " %>
+          <i class="fa fa-angle-double-right"></i>
+        </div>
+      </div>
+      <div class="card-footer">
+        <ul class="nav nav-pills card-header-pills float-left">
+          <% if blog.user == current_user%>
+            <li class="nav-item">
+              <%= link_to 'Edit', edit_blog_path(blog), class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Destroy', blog, method: :delete, class: 'nav-link', data: { confirm: 'Are you sure?' } %>
+            </li>
+          <% else%>
+            <li class="nav-item">
+              <big><%= link_to "", blog_likes_path(blog_id: blog.id), method: :post, class: 'fa fa-thumbs-up nav-link'%></big>
+            </li>
+          <% end %>
+        </ul>
+        <div class="float-right">
+          <small><%= pluralize(blog.likes.count, "like") %></small>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
