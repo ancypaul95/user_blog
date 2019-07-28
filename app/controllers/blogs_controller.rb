@@ -17,7 +17,7 @@ class BlogsController < ApplicationController
   end
 
   def create
-    @blog = Blog.new(title: params["blog"]["title"], description: params["blog"]["description"], user_id: current_user.id)
+    @blog = Blog.new(blog_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @blog.save

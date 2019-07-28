@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Blogs</h1>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <table>
   <thead>
     <tr>
@@ -20,8 +20,9 @@
         <% if blog.user == current_user%>
           <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
           <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else%>
+          <td><%= link_to "", blog_likes_path(blog_id: blog.id), method: :post, class: 'fa fa-thumbs-up'%> | <%= blog.likes.count %></td>
         <% end %>
-        <td><%= link_to "Like", class: 'btn btn-login btn-block'  %></td>
       </tr>
     <% end %>
   </tbody>
