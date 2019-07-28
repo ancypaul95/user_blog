@@ -9,7 +9,6 @@ end
 
 gem 'bootstrap'
 gem 'coffee-rails', '~> 4.2'
-gem 'coffee-script-source', '~> 1.11', '>= 1.11.1'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
