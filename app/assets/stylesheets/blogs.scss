@@ -3,4 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .blog__p--max-height {
   max-height: 5rem;
+  overflow: hidden;
+}
+.notification__div--position {
+  display: block;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+.notification__div--height {
+  min-height: 5rem;
 }

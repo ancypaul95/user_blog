@@ -42,6 +42,13 @@
         <% end %>
       </div>
     </nav>
+    <div class="notification__div--height">
+      <% if notice %>
+        <div class="alert alert-success notification__div--position mx-auto w-25" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
+    </div>
     <div class="container">
       <%= yield %>
     </div>
