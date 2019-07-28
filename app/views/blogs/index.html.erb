@@ -1,38 +1,49 @@
 <p id="notice"><%= notice %></p>
-<div class="container">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <% @blogs.each do |blog| %>
-    <div class="card my-3 w-50">
-      <div class="card-title text-center p-2">
-        <%= blog.title %>
+<% @blogs.each do |blog| %>
+  <article class="card my-3 w-50">
+    <header class="card-title text-center p-2">
+      <%= blog.title %>
+    </header>
+    <section class="card-body">
+      <p class="card-text blog__p--max-height">
+        <%= blog.description %>
+      </p>
+      <div class="float-left">
+        <small><em>By <%= blog.user.email %></em></small>
       </div>
-      <div class="card-body">
-        <p class="card-text blog__p--max-height"><%= blog.description %></p>
-        <div class="text-right">
-          <%= link_to 'Expand', blog, class: "card-link " %>
+      <div class="float-right">
+        <small>
+          <%= link_to 'Expand', blog, class: "card-link" %>
           <i class="fa fa-angle-double-right"></i>
-        </div>
+        </small>
       </div>
-      <div class="card-footer">
-        <ul class="nav nav-pills card-header-pills float-left">
-          <% if blog.user == current_user%>
-            <li class="nav-item">
-              <%= link_to 'Edit', edit_blog_path(blog), class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Destroy', blog, method: :delete, class: 'nav-link', data: { confirm: 'Are you sure?' } %>
-            </li>
-          <% else%>
-            <li class="nav-item">
-              <big><%= link_to "", blog_likes_path(blog_id: blog.id), method: :post, class: 'fa fa-thumbs-up nav-link'%></big>
-            </li>
-          <% end %>
-        </ul>
-        <div class="float-right">
-          <small><%= pluralize(blog.likes.count, "like") %></small>
-        </div>
+    </section>
+    <footer class="card-footer">
+      <ul class="nav nav-pills card-header-pills float-left">
+        <% if blog.user == current_user%>
+          <li class="nav-item">
+            <%= link_to ' Edit', edit_blog_path(blog), class: 'fa fa-pencil nav-link text-primary' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to ' Delete', blog, method: :delete, class: 'fa fa-trash nav-link text-danger', data: { confirm: 'Are you sure?' } %>
+          </li>
+        <% else%>
+          <li class="nav-item">
+            <% if liked(blog) %>
+              <big>
+                <%= link_to " Unlike", blog_like_path(id: @user_post_like.id, blog_id: blog.id), method: :delete, class: 'fa fa-thumbs-up nav-link pr-0 mr-0'%>
+              </big>
+            <% else %>
+                <big>
+                  <%= link_to " Like", blog_likes_path(blog_id: blog.id), method: :post, class: 'fa fa-thumbs-o-up nav-link pr-0 mr-0'%>
+                </big>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+      <div class="float-right">
+        <small><%= pluralize(blog.likes.count, "like") %></small>
       </div>
-    </div>
-  <% end %>
-</div>
+    </footer>
+  </article>
+<% end %>
