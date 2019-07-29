@@ -22,13 +22,13 @@
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <%= link_to 'Blogs', blogs_path, class:'nav-item nav-link' %> |
+                <%= link_to 'Blogs', blogs_path, class:"nav-item nav-link #{blogs_url == request.original_url ? 'active' : ''}" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Create Blog', new_blog_path, class: 'nav-item nav-link' %>
+                <%= link_to 'Create Blog', new_blog_path, class: "nav-item nav-link #{new_blog_url == request.original_url ? 'active' : ''}" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Edit profile', edit_user_registration_path, class:'nav-item nav-link' %> |
+                <%= link_to 'Edit profile', edit_user_registration_path, class:"nav-item nav-link #{request.original_url.include?(edit_user_registration_path) ? 'active' : ''}" %>
               </li>
               <li class="nav-item">
                 <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'nav-item nav-link'  %>
@@ -42,13 +42,11 @@
         <% end %>
       </div>
     </nav>
-    <div class="notification__div--height">
-      <% if notice %>
-        <div class="alert alert-success notification__div--position mx-auto w-25" role="alert">
-          <%= notice %>
-        </div>
-      <% end %>
-    </div>
+    <% if notice %>
+      <div class="alert alert-success mx-auto notification__div--position col-sm-8 col-md-6 col-lg-4" role="alert">
+        <%= notice %>
+      </div>
+    <% end %>
     <div class="container">
       <%= yield %>
     </div>

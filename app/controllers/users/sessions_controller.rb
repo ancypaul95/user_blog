@@ -2,13 +2,12 @@
 
 module Users
   class SessionsController < Devise::SessionsController
-    prepend_before_action :verify_signed_out_user, only: [:destroy]
+    append_before_action :verify_signed_out_user, only: [:destroy]
 
-    private
+    private # Overwriting the sign_out redirect path method
 
-    def verify_signed_out_user
-      sign_out(current_user)
-      head :ok
+    def after_sign_out_path_for(_resource)
+      root_path
     end
   end
 end

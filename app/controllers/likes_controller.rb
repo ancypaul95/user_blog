@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @like = Like.create(like_params.merge(user_id: current_user.id))
     respond_to do |format|

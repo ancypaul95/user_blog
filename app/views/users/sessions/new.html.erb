@@ -1,19 +1,19 @@
-<h2>Login</h2>
 <div class="block">
   <div class="flash-block">
     <% flash.each do |name, msg| %>
 
       <% if msg.class == Array %>
         <% msg.each do |message| %>
-          <%= content_tag :div, message, id: "flash_#{name}", class: "flash_message" %>
+          <%= content_tag :div, message, id: "flash_#{name}", class: "alert alert-danger notification__div--position mx-auto col-sm-8 col-md-6 col-lg-4" %>
         <% end %>
       <% else %>
 
-        <%= content_tag :div, msg, id: "flash_#{name}", class: "flash_message" %>
+        <%= content_tag :div, msg, id: "flash_#{name}", class: "alert alert-danger notification__div--position mx-auto col-sm-8 col-md-6 col-lg-4" %>
 
       <% end %>
     <% end %>
   </div>
+<h2 class="mt-3">Login</h2>
 
   <section class="login-block">
       <div class="row">
@@ -24,21 +24,21 @@
             url: session_path(resource_name),
             class: "login-form") do |f|
           %>
-            <div class="field form-group label-size">
-              <%= f.label :email %><br />
+            <div class="field form-group label-size row">
+              <%= f.label :email, class: "col-sm-12 col-md-4 col-lg-3" %><br />
               <%= f.email_field :email,
                 autofocus: true,
                 autocomplete: "email",
-                class: "form-control w-25",
+                class: "form-control col-sm-12 col-md-8 col-lg-5",
                 placeholder: "Email ID"
               %>
             </div>
 
-            <div class="field form-group label-size">
-              <%= f.label :password %><br />
+            <div class="field form-group label-size row">
+              <%= f.label :password, class:  "col-sm-12 col-md-4 col-lg-3" %><br />
               <%= f.password_field :password,
                 autocomplete: "current-password",
-                class: "form-control w-25",
+                class: "form-control col-sm-12 col-md-8 col-lg-5",
                 placeholder: "Password"
               %>
             </div>
